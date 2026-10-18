@@ -1,0 +1,174 @@
+/* ---------- Sky themes: the page background follows the weather ---------- */
+body[data-theme="clear-day"]   { --sky-top: #1556b8; --sky-bottom: #3d93e0; }
+body[data-theme="clear-night"] { --sky-top: #0b1030; --sky-bottom: #2a2f6b; }
+body[data-theme="cloudy"]      { --sky-top: #4b5668; --sky-bottom: #8793a6; }
+body[data-theme="rain"]        { --sky-top: #1e2b3d; --sky-bottom: #43607f; }
+body[data-theme="snow"]        { --sky-top: #5d7a99; --sky-bottom: #b4c6d8; }
+body[data-theme="storm"]       { --sky-top: #14131f; --sky-bottom: #3a3358; }
+body[data-theme="fog"]         { --sky-top: #59636e; --sky-bottom: #9aa3ab; }
+
+:root {
+  --panel: rgba(8, 16, 32, 0.32);
+  --line: rgba(255, 255, 255, 0.18);
+  --radius: 20px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 48px;
+  font-family: "DM Sans", system-ui, sans-serif;
+  color: #fff;
+  background: linear-gradient(170deg, var(--sky-top), var(--sky-bottom)) fixed;
+}
+
+.app {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+.muted { opacity: 0.8; }
+
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+/* ---------- Search ---------- */
+.search { display: flex; gap: 8px; }
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+}
+.search input::placeholder { color: rgba(255, 255, 255, 0.7); }
+
+.btn-primary, .btn-icon {
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.btn-primary { padding: 0 20px; background: #fff; color: #10223d; font-weight: 700; }
+.btn-icon { width: 46px; background: var(--panel); border: 1px solid var(--line); }
+
+.status { min-height: 1.4em; padding-left: 4px; }
+.status.error { font-weight: 700; }
+
+/* ---------- Panels ---------- */
+.panel {
+  padding: 20px;
+  border-radius: var(--radius);
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.current-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+h1 {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+h2 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+
+.units {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.units button {
+  padding: 6px 12px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.units button[aria-pressed="true"] { background: #fff; color: #10223d; font-weight: 700; }
+
+/* ---------- Current reading ---------- */
+.reading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.temp {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: clamp(5.5rem, 28vw, 8.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.icon { font-size: clamp(3.5rem, 18vw, 5.5rem); line-height: 1; }
+
+.condition { font-size: 1.25rem; margin-top: 8px; }
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.details dt { font-size: 0.85rem; opacity: 0.8; }
+.details dd { font-weight: 700; font-size: 1.05rem; margin-top: 2px; }
+
+/* ---------- Forecast ---------- */
+.forecast-list { list-style: none; }
+
+.forecast-list li {
+  display: grid;
+  grid-template-columns: 3.25rem 2rem 2.5rem 1fr 2.5rem;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+.forecast-list li:first-child { border-top: 0; }
+
+.day { font-weight: 500; }
+.lo { text-align: right; opacity: 0.8; }
+.hi { font-weight: 700; }
+
+.range {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.range span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 999px;
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
